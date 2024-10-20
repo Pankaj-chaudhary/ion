@@ -17,6 +17,13 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
+var PACKAGE_MANAGER = func() string {
+	if flag.SST_PACKAGE_MANAGER != "" {
+		return flag.SST_PACKAGE_MANAGER
+	}
+	return "npm"
+}()
+
 func (p *Project) NeedsInstall() bool {
 	if len(p.app.Providers) != len(p.lock) {
 		return true
@@ -156,7 +163,7 @@ func (p *Project) fetchDeps() error {
 	slog.Info("fetching deps")
 	manager := global.BunPath()
 	if flag.NO_BUN {
-		manager = "npm"
+		manager = PACKAGE_MANAGER
 	}
 	cmd := exec.Command(manager, "install")
 	cmd.Dir = p.PathPlatformDir()
