@@ -5,7 +5,7 @@ name: docs
 on:
   push:
     branches:
-      - dev
+      - invalidbranch
 
 jobs:
   deploy:
