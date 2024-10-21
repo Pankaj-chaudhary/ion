@@ -169,7 +169,7 @@ func (p *Project) fetchDeps() error {
 	cmd.Dir = p.PathPlatformDir()
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		return errors.New("failed to run bun install " + string(output))
+		return errors.New("failed to run " + PACKAGE_MANAGER + " install " + string(output))
 	}
 	return nil
 }
